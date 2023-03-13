@@ -52,6 +52,38 @@ public class Room
         return description;
     }
 
+       private String getNorth()
+    {
+        if (location = 0) { // in the event that you cannot go further in this direction
+            return ("You can't go more north!");
+        }
+        return ();
+    }
+    
+    private String getSouth()
+    {
+        if (location = 0) {
+            return ("You can't go more south!");
+        }
+        return ();
+    }
+    
+    private String getEast()
+    {
+        if (location = 0) {
+            return ("You can't go more east!");
+        }
+        return ();
+    }
+    
+    private String getWest()
+    {
+       if (location = 0) {
+            return ("You can't go more west!");
+        }
+        return ();
+    }
+    
     /**
      * Return a description of the room in the form:
      *     You are in the kitchen.

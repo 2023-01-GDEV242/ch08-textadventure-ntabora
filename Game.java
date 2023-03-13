@@ -1,18 +1,10 @@
 /**
  *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
+ *  "World of Zuul" is a very simple, text based adventure game. 
  * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
  * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
- * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Nathaniel Tabora
+ * @version 2023.03.23
  */
 
 public class Game 
@@ -23,6 +15,7 @@ public class Game
     /**
      * Create the game and initialise its internal map.
      */
+    
     public Game() 
     {
         createRooms();
@@ -34,30 +27,49 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room eventCtr, theater, cafe, testingCtr, ctrBldg, BuildW, staircase, collegeCtr, whitmanBldg, huntHall, prkLot;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        eventCtr = new Room("inside the main eventCtr of the university");  //event center
+            theater = new Room("in the commons theater"); //theatre
+            testingCtr = new Room("in the testing center"); //Somerset Test Center
+
+        ctrBldg = new Room("in the College Center building"); //College Center
+                
+        collegeCtr = new Room ("you are at the College Center Courtyard"); //center of the campus (outdoor)
+            staircase = new Room ("Stairwell to Cafe"); //College Center Stairwell
+            cafe = new Room("in the campus cafe"); //College Center cafe
+            
+        whitmanBldg = new Room ("you are in the Whitman Science Building"); // Whitman Science Center
+        huntHall = new Room ("you are in the Hunterdon Hall Building"); //Hunterdon Hall
+        BuildW = new Room ("in the West Building"); //West Building
+        prkLot = new Room ("in the parking lot"); //parking lot
+
+        
         
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        eventCtr.setExit("east", theater);
+        eventCtr.setExit("west", testingCtr);
+        eventCtr.setExit("north", collegeCtr);
 
-        theater.setExit("west", outside);
+        theater.setExit("south", eventCtr);
 
-        pub.setExit("east", outside);
+        cafe.setExit("east", staircase);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        testingCtr.setExit("south", eventCtr);
+        testingCtr.setExit("east", collegeCtr);
 
-        office.setExit("west", lab);
+        ctrBldg.setExit("east", huntHall);
+        ctrBldg.setExit("north", staircase);
+        ctrBldg.setExit("west", collegeCtr);
+        ctrBldg.setExit("south", collegeCtr);
+        
+        BuildW.setExit ("north", prkLot);
+        BuildW.setExit ("south", collegeCtr);
+        
+        
 
-        currentRoom = outside;  // start game outside
+        currentRoom = eventCtr;  // start game inside the main building
     }
 
     /**
@@ -85,12 +97,22 @@ public class Game
     {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("World of Zuul is a new, incredibly [insert verb] adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
 
+    
+    private void lookAround()
+    {
+        System.out.println("North is: " + getNorth());
+        System.out.println("South is: " + getSouth());    
+        System.out.println("East is: " + getEast());    
+        System.out.println("West is: " + getWest());                              
+    }
+    
+    
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
@@ -117,6 +139,10 @@ public class Game
 
             case QUIT:
                 wantToQuit = quit(command);
+                break;
+                
+            case LOOK:
+                lookAround();
                 break;
         }
         return wantToQuit;
@@ -178,5 +204,14 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    /**
+     * Allows the game to be started up without the need of the BlueJ integrator/IDE
+     */
+        public void main ()
+    {
+        createRooms();
+        play();
     }
 }
