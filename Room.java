@@ -52,7 +52,7 @@ public class Room
         return description;
     }
 
-       private String getNorth()
+      private String getNorth()
     {
         if (location = 0) { // in the event that you cannot go further in this direction
             return ("You can't go more north!");
@@ -83,6 +83,7 @@ public class Room
         }
         return ();
     }
+    
     
     /**
      * Return a description of the room in the form:
@@ -121,4 +122,3 @@ public class Room
         return exits.get(direction);
     }
 }
-

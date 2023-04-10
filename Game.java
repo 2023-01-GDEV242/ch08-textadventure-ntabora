@@ -27,48 +27,79 @@ public class Game
      */
     private void createRooms()
     {
-        Room eventCtr, theater, cafe, testingCtr, ctrBldg, BuildW, staircase, collegeCtr, whitmanBldg, huntHall, prkLot;
+        Room eventCtr, theater, cafe, testingCtr, ctrBldg, BuildW, staircase, collegeCtr, whitmanBldg, huntHall, prkLot1, lot2, lot3, lot4, busStop, planetarium, gameLab, entrance, limits;
       
         // create the rooms
-        eventCtr = new Room("inside the main eventCtr of the university");  //event center
+            eventCtr = new Room("inside the main eventCtr of the university");  //event center
             theater = new Room("in the commons theater"); //theatre
             testingCtr = new Room("in the testing center"); //Somerset Test Center
 
-        ctrBldg = new Room("in the College Center building"); //College Center
-                
-        collegeCtr = new Room ("you are at the College Center Courtyard"); //center of the campus (outdoor)
+            ctrBldg = new Room("in the College Center building"); //College Center
+            whitmanBldg = new Room ("you are in the Whitman Science Building"); // Whitman Science Center
+            huntHall = new Room ("you are in the Hunterdon Hall Building"); //Hunterdon Hall
+                planetarium = new Room ("at the Planetarium/Observatory"); //at the Planetarium
+
+            
+            collegeCtr = new Room ("you are at the College Center Courtyard"); //center of the campus (outdoor)
             staircase = new Room ("Stairwell to Cafe"); //College Center Stairwell
             cafe = new Room("in the campus cafe"); //College Center cafe
             
-        whitmanBldg = new Room ("you are in the Whitman Science Building"); // Whitman Science Center
-        huntHall = new Room ("you are in the Hunterdon Hall Building"); //Hunterdon Hall
-        BuildW = new Room ("in the West Building"); //West Building
-        prkLot = new Room ("in the parking lot"); //parking lot
+            
+            BuildW = new Room ("in the West Building"); //West Building
+                gameLab = new Room ("Game Lab in West Building"); //W113
+            
+            entrance = new Room ("in the main entrance off Rt. 22"); //Main two lane service road.
+                prkLot = new Room ("in the parking lot"); //parking lot
+                busStop = new Room ("at the CAT and NJ Transit bus stops"); //in front of theater
+                
+            lot2 = new Room ("in the parking lot");
+            lot3 = new Room ("in the parking lot");
+            lot4 = new Room ("in the parking lot");
 
-        
-        
+                
+            limits = new Room ("you have reached the boundaries of RVCC!");
+                
         // initialise room exits
-        eventCtr.setExit("east", theater);
-        eventCtr.setExit("west", testingCtr);
         eventCtr.setExit("north", collegeCtr);
+        eventCtr.setExit("south", prkLot1);
+        eventCtr.setExit("east", testingCtr);
+        eventCtr.setExit("west", theater);
 
-        theater.setExit("south", eventCtr);
+        theater.setExit("north", limits);
+        theater.setExit("south", busStop);
+        theater.setExit("east", limits);
+        theater.setExit("west", eventCtr); 
 
-        cafe.setExit("east", staircase);
+        cafe.setExit ("north", limits);
+        cafe.setExit ("south", limits);
+        cafe.setExit ("east", limits);
+        cafe.setExit("west", staircase);
 
-        testingCtr.setExit("south", eventCtr);
+        testingCtr.setExit("north", limits);
+        testingCtr.setExit("south", lot2);
         testingCtr.setExit("east", collegeCtr);
-
-        ctrBldg.setExit("east", huntHall);
+        testingCtr.setExit("west", limits);
+        
         ctrBldg.setExit("north", staircase);
-        ctrBldg.setExit("west", collegeCtr);
         ctrBldg.setExit("south", collegeCtr);
+        ctrBldg.setExit("east", huntHall);
+        ctrBldg.setExit("west", BuildW);
         
-        BuildW.setExit ("north", prkLot);
-        BuildW.setExit ("south", collegeCtr);
-        
-        
+        BuildW.setExit ("north", whitmanBldg);
+        BuildW.setExit ("south", gameLab);
+        BuildW.setExit ("east", collegeCtr);
+        BuildW.setExit ("west", lot3);
 
+        prkLot1.setExit ("north", eventCtr );
+        prkLot1.setExit ("south", limits);
+        prkLot1.setExit ("east", busStop);
+        prkLot1.setExit ("west", lot2);
+        
+        lot2.setExit("north", testingCtr);
+        lot2.setExit("south", limits);
+        lot2.setExit("east", prkLot1);
+        lot2.setExit("west", limits);
+        
         currentRoom = eventCtr;  // start game inside the main building
     }
 
