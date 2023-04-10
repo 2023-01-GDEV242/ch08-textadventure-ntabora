@@ -30,7 +30,7 @@ public class Game
         Room eventCtr, theater, cafe, testingCtr, ctrBldg, BuildW, staircase, collegeCtr, whitmanBldg, huntHall, prkLot1, lot2, lot3, lot4, busStop, planetarium, gameLab, entrance, limits;
       
         // create the rooms
-            eventCtr = new Room("inside the main eventCtr of the university");  //event center
+            eventCtr = new Room("inside the main event center of the university");  //event center
             theater = new Room("in the commons theater"); //theatre
             testingCtr = new Room("in the testing center"); //Somerset Test Center
 
@@ -49,15 +49,15 @@ public class Game
                 gameLab = new Room ("Game Lab in West Building"); //W113
             
             entrance = new Room ("in the main entrance off Rt. 22"); //Main two lane service road.
-                prkLot = new Room ("in the parking lot"); //parking lot
+                prkLot1 = new Room ("in the parking lot"); //parking lot
                 busStop = new Room ("at the CAT and NJ Transit bus stops"); //in front of theater
                 
-            lot2 = new Room ("in the parking lot");
-            lot3 = new Room ("in the parking lot");
-            lot4 = new Room ("in the parking lot");
+            lot2 = new Room ("in parking lot 2");
+            lot3 = new Room ("in parking lot 3");
+            lot4 = new Room ("in parking lot 4");
 
                 
-            limits = new Room ("you have reached the boundaries of RVCC!");
+            //limits = new Room ("you have reached the boundaries of RVCC!");
                 
         // initialise room exits
         eventCtr.setExit("north", collegeCtr);
@@ -65,20 +65,20 @@ public class Game
         eventCtr.setExit("east", testingCtr);
         eventCtr.setExit("west", theater);
 
-        theater.setExit("north", limits);
+        //theater.setExit("north", limits);
         theater.setExit("south", busStop);
-        theater.setExit("east", limits);
+        //theater.setExit("east", limits);
         theater.setExit("west", eventCtr); 
 
-        cafe.setExit ("north", limits);
-        cafe.setExit ("south", limits);
-        cafe.setExit ("east", limits);
+        //cafe.setExit ("north", limits);
+        //cafe.setExit ("south", limits);
+        //cafe.setExit ("east", limits);
         cafe.setExit("west", staircase);
 
-        testingCtr.setExit("north", limits);
+        //testingCtr.setExit("north", limits);
         testingCtr.setExit("south", lot2);
         testingCtr.setExit("east", collegeCtr);
-        testingCtr.setExit("west", limits);
+        //testingCtr.setExit("west", limits);
         
         ctrBldg.setExit("north", staircase);
         ctrBldg.setExit("south", collegeCtr);
@@ -89,16 +89,67 @@ public class Game
         BuildW.setExit ("south", gameLab);
         BuildW.setExit ("east", collegeCtr);
         BuildW.setExit ("west", lot3);
+        
+        //staircase.setExit("north", limits);
+        staircase.setExit("south", collegeCtr);
+        staircase.setExit("east", cafe);
+        //staircase.setExit("west", limits);
+        
+        collegeCtr.setExit("north", staircase );
+        collegeCtr.setExit("south", eventCtr);
+        collegeCtr.setExit("east", huntHall);
+        collegeCtr.setExit("west", BuildW);
+
+        //whitmanBldg.setExit("north", limits);
+        whitmanBldg.setExit("south", BuildW);
+        //whitmanBldg.setExit("east", limits);
+        //whitmanBldg.setExit("west", limits);
+        
+        //huntHall.setExit("north", limits);
+        //huntHall.setExit("south", limits);
+        huntHall.setExit("east", planetarium);
+        huntHall.setExit("west", collegeCtr);
 
         prkLot1.setExit ("north", eventCtr );
-        prkLot1.setExit ("south", limits);
+        //prkLot1.setExit ("south", limits);
         prkLot1.setExit ("east", busStop);
         prkLot1.setExit ("west", lot2);
         
         lot2.setExit("north", testingCtr);
-        lot2.setExit("south", limits);
+        //lot2.setExit("south", limits);
         lot2.setExit("east", prkLot1);
-        lot2.setExit("west", limits);
+        //lot2.setExit("west", limits);
+        
+        //lot3.setExit("north", limits);
+        lot3.setExit("south", lot4);
+        lot3.setExit("east", BuildW);
+        //lot3.setExit("west", limits);
+        
+        lot4.setExit("north", lot3);
+        lot4.setExit("south", entrance);
+        lot4.setExit("east", busStop);
+        //lot4.setExit("west", limits);
+        
+        busStop.setExit("north", theater);
+        busStop.setExit("south", entrance);
+        busStop.setExit("east", prkLot1);
+        busStop.setExit("west", lot4);
+        
+        //planetarium.setExit("north", limits);
+        //planetarium.setExit("south", limits);
+        //planetarium.setExit("east", limits);
+        planetarium.setExit("west", huntHall);
+
+        
+        gameLab.setExit("north", BuildW);
+        //south
+        //east
+        //west
+        
+        entrance.setExit("north", busStop);
+        //entrance.setExit("south", limits);
+        entrance.setExit("east", prkLot1);
+        entrance.setExit("west", lot4);
         
         currentRoom = eventCtr;  // start game inside the main building
     }
@@ -137,12 +188,9 @@ public class Game
     
     private void lookAround()
     {
-        System.out.println("North is: " + getNorth());
-        System.out.println("South is: " + getSouth());    
-        System.out.println("East is: " + getEast());    
-        System.out.println("West is: " + getWest());                              
+        System.out.println(currentRoom.getLongDescription());                       
     }
-    
+
     
     /**
      * Given a command, process (that is: execute) the command.
